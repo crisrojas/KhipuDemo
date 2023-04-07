@@ -23,13 +23,18 @@ struct ContentView: View {
             update: change(t:c:),
             replay: replay
         )
-        TodoList(todos: state.todos, recordedSteps: 0,  recordedLength: 0, client: client)
+        
+        TodoList(
+            todos: state.todos,
+            recordedSteps: timelineRecorder.totalSteps,
+            recordedLength: timelineRecorder.totalLength,
+            client: client
+        )
     }
-    
     
     func add(_ todo: ToDo) {core(.cmd(.add(todo)))}
     func delete(_ todo: ToDo) {core(.cmd(.delete(todo)))}
     func change(t: ToDo, c: ToDo.Change) {core(.cmd(.change(t, with: c)))}
-    func replay() {}
+    func replay() {core(.replay)}
 }
 

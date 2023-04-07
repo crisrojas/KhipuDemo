@@ -69,12 +69,7 @@ public typealias StateStore<S,C> = (
 
 public enum Message {
     case cmd(AppState.Change)
-    case hot(HotReload)
-
-    public enum HotReload {
-        case write
-        case stop
-    }
+    case replay
     
     var change: AppState.Change? {
         switch self {
@@ -87,10 +82,14 @@ public enum Message {
 public typealias Input  = (Message) -> ()
 public typealias Output = (Message) -> ()
  
-public func createCore(output: @escaping Output, store: DefaultStore) -> Input  {
+public func createCore(
+    output: @escaping Output,
+    recorder: TimelineRecorderMiddleware,
+    store: DefaultStore
+) -> Input  {
     
     // State UseCases
-    let adder   = Adder  (store: store, responder: handle(output))
+    let adder   = Adder  (store: store, responder: { _ in})
     let deleter = Deleter(store: store)
     let changer = Changer(store: store)
     
@@ -99,17 +98,15 @@ public func createCore(output: @escaping Output, store: DefaultStore) -> Input  
     let hotReload = HotReloader(store: store)
     
     return {
+        recorder.register(state: store.state())
         logger.request(.log(message: $0, state: store.state()))
         if case let .add(todo)    = $0.change {adder.request(.add(todo))}
         if case let .delete(todo) = $0.change {deleter.request(.delete(todo))}
         if case let .change(t, c) = $0.change {changer.request(.change(t, with: c))}
         hotReload.write(store.state())
+        if case .replay = $0 {recorder.replayTimeline {}}
     }
 }
-
-private func handle(_ output: @escaping Output) -> (Adder.Response) -> () {{
-    if case .didAdd = $0 { output(.hot(.write)) }
-}}
 
 protocol UseCase {
     associatedtype RequestType
@@ -296,14 +293,15 @@ public final class TimelineRecorderMiddleware {
         self.store = store
         timeline = [(0.0, AppState())]
     }
-
-    func middleware(state: AppState) {
+    
+    func register(state: AppState) {
         if shouldRecord {
             timeline.append((timeline.isEmpty ? 0.0 : Date().timeIntervalSince(lastStateChangeDate), state))
         }
 
         lastStateChangeDate = Date()
     }
+    
 
     public func replayTimeline(completion: @escaping () -> ()) {
         shouldRecord = false
