@@ -43,11 +43,18 @@ public struct TodoList: View {
     public var body: some View {
         NavigationView {
             List {
-                ForEach(todos) {
-                    Text($0.fullTitle)
+                ForEach(todos) { item in
+                    HStack {
+                        Image(systemName: item.done ? "checkmark.circle" : "circle")
+                            .buttonify {
+                                client?.update(item, .toggle)
+                            }
+                        Text(item.fullTitle)
+                    }
                 }
                 .onDelete(perform: delete)
             }
+            .animation(.linear, value: todos)
             .alert(
                 "Do you want to replay \(recordedSteps) states (duration: \(Int(recoredLenght))s)?",
                 isPresented: $isReplayStartAlertVisible,
@@ -92,5 +99,12 @@ public struct TodoList: View {
             let todo = todos[index]
             client?.delete(todo)
         }
+    }
+}
+
+
+public extension View {
+    func buttonify(performing action: @escaping () -> ()) -> some View {
+        Button(action: action, label: {self})
     }
 }

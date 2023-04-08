@@ -29,6 +29,7 @@ public extension ToDo {
     
     enum Change {
         case title(String)
+        case toggle
         case complete
         case uncomplete
     }
@@ -36,11 +37,12 @@ public extension ToDo {
     func apply(_ change: Change) -> Self {
         switch change {
         case .title(let title): return .init(id, title, done)
+        case .toggle: return .init(id, title, !done)
         case .complete  : return .init(id, title, true)
         case .uncomplete: return .init(id, title, false)
         }
     }
 }
 
-extension ToDo: Codable, Identifiable {}
+extension ToDo: Codable, Identifiable, Equatable {}
 extension ToDo.Change: Codable {}

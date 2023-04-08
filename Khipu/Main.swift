@@ -26,6 +26,8 @@ public final class ViewState: ObservableObject {
     
     private func process(_ state: AppState) {
         todos = state.todos
+            .sorted(by: { !$0.done && $1.done })
+            .sorted(by: { $0.title < $1.title })
     }
 }
 
