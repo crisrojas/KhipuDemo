@@ -12,7 +12,7 @@ import SwiftUI
 public struct AppState {
     let todos: [ToDo]
     let replayEnabled: Bool
-    let editing: Bool
+    let editing: Bool // @todo: Bind to SwiftUI List EditMode
 }
 
 public final class ViewState: ObservableObject {

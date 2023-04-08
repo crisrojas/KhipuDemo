@@ -13,7 +13,6 @@ import Khipu
 
 struct ContentView: View {
     @State private var isReplayStartAlertVisible = false
-    @Environment(\.editMode) var editMode
     @StateObject var state: ViewState
     let core: Input
     
@@ -33,8 +32,6 @@ struct ContentView: View {
             replayEnabled: state.replayEnabled,
             client: client
         )
-        .environment(\.editMode, $state.editMode)
-        
     }
     
     func add(_ todo: ToDo) {core(.cmd(.add(todo)))}

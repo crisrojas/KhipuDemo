@@ -74,18 +74,19 @@ public struct TodoList: View {
                         action: { isReplayStartAlertVisible = true },
                         label: {
                             Image(systemName: "clock.arrow.circlepath")
-                                .foregroundColor(!replayEnabled ? .secondary : .yellow)
+                                .foregroundColor(!replayEnabled ? .secondary : .blue)
                         }
                     )
                     .disabled(!replayEnabled)
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        client?.edit(true)
-                    } label: {
-                        Text("Edit")
-                    }
+//                    Button {
+//                        client?.edit(true)
+//                    } label: {
+//                        Text("Edit")
+//                    }
+                    EditButton()
 
                 }
                 
