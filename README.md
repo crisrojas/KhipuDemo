@@ -1,4 +1,4 @@
-[Khipu Architecture](//vikingosegundo.gitlab.io) port of the Redux features described in the amazing article by [Wojciech Kulik](https://wojciechkulik.pl/ios/redux-architecture-and-mind-blowing-features).
+[Khipu Architecture](//vikingosegundo.gitlab.io) port of the Redux features described in the amazing [Redux architecture and mind-blowing features]( https://wojciechkulik.pl/ios/redux-architecture-and-mind-blowing-features) article by Wojciech Kulik.
 
 
 ## Timeline replay
