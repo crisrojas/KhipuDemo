@@ -24,6 +24,11 @@
 		40A9E45529E0A90B00EAEE75 /* Khipu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40A9E44E29E0A90A00EAEE75 /* Khipu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		40A9E45A29E0A91200EAEE75 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9E45929E0A91200EAEE75 /* Main.swift */; };
 		40A9E45C29E0B1D100EAEE75 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9E45B29E0B1D100EAEE75 /* TodoList.swift */; };
+		40A9E45E29E1618800EAEE75 /* HotReloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9E45D29E1618800EAEE75 /* HotReloader.swift */; };
+		40A9E46029E1619500EAEE75 /* TimeLineRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9E45F29E1619500EAEE75 /* TimeLineRecorder.swift */; };
+		40A9E46229E161B800EAEE75 /* UseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9E46129E161B800EAEE75 /* UseCases.swift */; };
+		40A9E46429E161C900EAEE75 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9E46329E161C900EAEE75 /* Logger.swift */; };
+		40A9E46729E1620700EAEE75 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9E46629E1620700EAEE75 /* State.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +95,11 @@
 		40A9E45029E0A90B00EAEE75 /* Khipu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Khipu.h; sourceTree = "<group>"; };
 		40A9E45929E0A91200EAEE75 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		40A9E45B29E0B1D100EAEE75 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
+		40A9E45D29E1618800EAEE75 /* HotReloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotReloader.swift; sourceTree = "<group>"; };
+		40A9E45F29E1619500EAEE75 /* TimeLineRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineRecorder.swift; sourceTree = "<group>"; };
+		40A9E46129E161B800EAEE75 /* UseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCases.swift; sourceTree = "<group>"; };
+		40A9E46329E161C900EAEE75 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		40A9E46629E1620700EAEE75 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,8 +218,21 @@
 			children = (
 				40A9E45029E0A90B00EAEE75 /* Khipu.h */,
 				40A9E45929E0A91200EAEE75 /* Main.swift */,
+				40A9E46529E161D500EAEE75 /* Middleware */,
+				40A9E46129E161B800EAEE75 /* UseCases.swift */,
+				40A9E46629E1620700EAEE75 /* State.swift */,
 			);
 			path = Khipu;
+			sourceTree = "<group>";
+		};
+		40A9E46529E161D500EAEE75 /* Middleware */ = {
+			isa = PBXGroup;
+			children = (
+				40A9E45D29E1618800EAEE75 /* HotReloader.swift */,
+				40A9E45F29E1619500EAEE75 /* TimeLineRecorder.swift */,
+				40A9E46329E161C900EAEE75 /* Logger.swift */,
+			);
+			path = Middleware;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,7 +489,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A9E46429E161C900EAEE75 /* Logger.swift in Sources */,
 				40A9E45A29E0A91200EAEE75 /* Main.swift in Sources */,
+				40A9E46229E161B800EAEE75 /* UseCases.swift in Sources */,
+				40A9E45E29E1618800EAEE75 /* HotReloader.swift in Sources */,
+				40A9E46029E1619500EAEE75 /* TimeLineRecorder.swift in Sources */,
+				40A9E46729E1620700EAEE75 /* State.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

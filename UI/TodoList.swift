@@ -12,7 +12,8 @@ public typealias TodoListClient = (
     add: (ToDo) -> (),
     delete: (ToDo) -> (),
     update: (ToDo, ToDo.Change) -> (),
-    replay: () -> ()
+    replay: () -> (),
+    edit: (Bool) -> ()
 )
 
 extension ToDo {
@@ -26,17 +27,18 @@ extension ToDo {
 public struct TodoList: View {
     
     @State private var isReplayStartAlertVisible = false
-    @State private var isReplayButtonDisabled = false
-    
+ 
     let todos: [ToDo]
     let recordedSteps: Int
     let recoredLenght: TimeInterval
+    let replayEnabled: Bool
     let client: TodoListClient?
     
-    public init(todos: [ToDo], recordedSteps: Int, recordedLength: TimeInterval, client: TodoListClient? = nil) {
+    public init(todos: [ToDo], recordedSteps: Int, recordedLength: TimeInterval, replayEnabled: Bool, client: TodoListClient? = nil) {
         self.todos = todos
         self.recordedSteps = recordedSteps
         self.recoredLenght = recordedLength
+        self.replayEnabled = replayEnabled
         self.client = client
     }
     
@@ -72,14 +74,19 @@ public struct TodoList: View {
                         action: { isReplayStartAlertVisible = true },
                         label: {
                             Image(systemName: "clock.arrow.circlepath")
-                                .foregroundColor(isReplayButtonDisabled ? .secondary : .yellow)
+                                .foregroundColor(!replayEnabled ? .secondary : .yellow)
                         }
                     )
-                    .disabled(isReplayButtonDisabled)
+                    .disabled(!replayEnabled)
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                    Button {
+                        client?.edit(true)
+                    } label: {
+                        Text("Edit")
+                    }
+
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
