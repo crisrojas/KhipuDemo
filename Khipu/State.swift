@@ -46,6 +46,9 @@ public extension AppState {
     enum Change {
         case add(ToDo)
         case delete(ToDo)
+        
+        // @todo: This could have been a single tuple:
+        // update(ToDo) where ToDO is passed with the applied changed already.
         case change(ToDo, with: ToDo.Change)
         case editing(Bool)
     }

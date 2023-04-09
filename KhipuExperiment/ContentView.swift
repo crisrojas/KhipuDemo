@@ -42,9 +42,9 @@ struct ContentView: View {
                 }
             }
         )
-        .alert("Timeline has finished!", isPresented: $stateHolder.isFinished, actions: {
+        .alert("Timeline has finished!", isPresented: $stateHolder.isFinished) {
             Button("OK") {}
-        })
+        }
     }
 }
 
