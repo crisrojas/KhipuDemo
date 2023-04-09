@@ -30,7 +30,6 @@ public typealias Input  = (Message) -> ()
 public typealias Output = (Message) -> ()
  
 public func createCore(
-    output: @escaping Output,
     recorder: TimelineRecorderMiddleware,
     store: DefaultStore
 ) -> Input  {
