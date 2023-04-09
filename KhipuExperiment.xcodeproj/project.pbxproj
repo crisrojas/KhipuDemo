@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		40A9E3FD29E0A79400EAEE75 /* KhipuExperimentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9E3FC29E0A79400EAEE75 /* KhipuExperimentApp.swift */; };
 		40A9E3FF29E0A79400EAEE75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9E3FE29E0A79400EAEE75 /* ContentView.swift */; };
-		40A9E40129E0A79500EAEE75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40A9E40029E0A79500EAEE75 /* Assets.xcassets */; };
-		40A9E40429E0A79500EAEE75 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40A9E40329E0A79500EAEE75 /* Preview Assets.xcassets */; };
 		40A9E40E29E0A79500EAEE75 /* KhipuExperimentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9E40D29E0A79500EAEE75 /* KhipuExperimentTests.swift */; };
 		40A9E42E29E0A7C800EAEE75 /* Models.h in Headers */ = {isa = PBXBuildFile; fileRef = 40A9E42D29E0A7C800EAEE75 /* Models.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40A9E43129E0A7C800EAEE75 /* Models.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A9E42B29E0A7C800EAEE75 /* Models.framework */; };
@@ -82,8 +80,6 @@
 		40A9E3F929E0A79400EAEE75 /* KhipuExperiment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KhipuExperiment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A9E3FC29E0A79400EAEE75 /* KhipuExperimentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KhipuExperimentApp.swift; sourceTree = "<group>"; };
 		40A9E3FE29E0A79400EAEE75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		40A9E40029E0A79500EAEE75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		40A9E40329E0A79500EAEE75 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		40A9E40929E0A79500EAEE75 /* KhipuExperimentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KhipuExperimentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A9E40D29E0A79500EAEE75 /* KhipuExperimentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KhipuExperimentTests.swift; sourceTree = "<group>"; };
 		40A9E42B29E0A7C800EAEE75 /* Models.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Models.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,18 +169,8 @@
 			children = (
 				40A9E3FC29E0A79400EAEE75 /* KhipuExperimentApp.swift */,
 				40A9E3FE29E0A79400EAEE75 /* ContentView.swift */,
-				40A9E40029E0A79500EAEE75 /* Assets.xcassets */,
-				40A9E40229E0A79500EAEE75 /* Preview Content */,
 			);
 			path = KhipuExperiment;
-			sourceTree = "<group>";
-		};
-		40A9E40229E0A79500EAEE75 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				40A9E40329E0A79500EAEE75 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		40A9E40C29E0A79500EAEE75 /* KhipuExperimentTests */ = {
@@ -416,8 +402,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40A9E40429E0A79500EAEE75 /* Preview Assets.xcassets in Resources */,
-				40A9E40129E0A79500EAEE75 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
