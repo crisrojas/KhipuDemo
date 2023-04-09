@@ -50,6 +50,7 @@ public struct TodoList: View {
                 .onDelete(perform: delete)
             }
             .animation(.linear, value: todos)
+            .animation(.linear, value: editing)
             .environment(\.editMode, editMode)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

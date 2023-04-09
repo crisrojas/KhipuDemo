@@ -11,7 +11,7 @@ import SwiftUI
 
 public struct AppState {
     let todos: [ToDo]
-    let editing: Bool // @todo: Bind to SwiftUI List EditMode
+    let editing: Bool
 }
 
 public final class ViewState: ObservableObject {
