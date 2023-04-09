@@ -14,7 +14,8 @@ Works with VSCode, but won't with the majority of editors:
 
 > If you try to test this by opening a text editor, adding some text and saving the file, you'll see that it may not work. The reason is that editors like Xcode don't actually modify the file -- instead, they act on copies of it. When you save it, they delete the original file and replace it with the copy they were maintaining. —[SwiftRocks](https://swiftrocks.com/dispatchsource-detecting-changes-in-files-and-folders-in-swift)
 
-https://user-images.githubusercontent.com/23734068/230716506-86ed2d4c-f246-4ca0-a149-a825624c6578.mov
+
+https://user-images.githubusercontent.com/23734068/230792329-399aa2fb-71bb-4ff9-a1aa-3c03e3a6292b.mov
 
 
 ### Modular architecture
