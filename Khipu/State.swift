@@ -17,7 +17,7 @@ public struct AppState {
 
 public final class ViewState: ObservableObject {
     @Published public var todos = [ToDo]()
-    @Published public var editMode = EditMode.inactive
+    @Published public var editing = false
     @Published public var replayEnabled = true
     
     public init(store: DefaultStore) {
@@ -34,7 +34,8 @@ public final class ViewState: ObservableObject {
             .sorted(by: { $0.title < $1.title })
             .sorted(by: { !$0.done && $1.done })
         replayEnabled = state.replayEnabled
-        editMode = state.editing ? .active : .inactive
+        editing = state.editing
+//        editMode = state.editing ? .active : .inactive
     }
 }
 

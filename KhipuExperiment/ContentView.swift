@@ -20,6 +20,7 @@ struct ContentView: View {
     var body: some View {
         TodoList(
             todos: state.todos,
+            editing: state.editing,
             client: todoClient
         )
         #if DEBUG
