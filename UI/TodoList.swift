@@ -111,6 +111,14 @@ public struct TodoList: View {
 }
 
 
+// We need to store state somewhere, because it will be discarded during timeline replay.
+fileprivate final class ReplayFinishedStateHolder: ObservableObject {
+    @Published var isFinished = false
+    @Published var isReplayButtonDisabled = false
+}
+fileprivate let replayFinishedStateHolder = ReplayFinishedStateHolder()
+
+
 public extension View {
     func buttonify(performing action: @escaping () -> ()) -> some View {
         Button(action: action, label: {self})

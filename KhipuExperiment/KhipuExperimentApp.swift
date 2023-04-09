@@ -17,8 +17,6 @@ struct KhipuExperimentApp: App {
     }
 }
 
-
-
 let timelineRecorder = TimelineRecorderMiddleware(store: store)
 fileprivate let store = createRamStore()
 fileprivate let state = ViewState(store: store)

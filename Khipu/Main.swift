@@ -43,7 +43,7 @@ public func createCore(
     
     // Middleware observers
     let logger    = Logger()
-    let hotReload = HotReloader(store: store)
+    let reloader = HotReloader<AppState> {store.inject($0)}
     
     return {
         
@@ -51,9 +51,9 @@ public func createCore(
         if case let .add(todo)    = $0.change {adder.request(.add(todo))}
         if case let .delete(todo) = $0.change {deleter.request(.delete(todo))}
         if case let .change(t, c) = $0.change {changer.request(.change(t, with: c))}
-        hotReload.write(store.state())
-        if case .replay = $0 {recorder.replay()}
         if case let .edit(editing) = $0 {store.change(.editing(editing))}
+        reloader.write(store.state())
+        if case .replay = $0 {recorder.replay()}
         else {recorder.register(state: store.state())}
     }
 }

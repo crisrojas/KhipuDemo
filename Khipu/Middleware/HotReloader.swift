@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class HotReloader {
+final class HotReloader<T: Codable> {
     private var fileHandle: FileHandle?
     private var source: DispatchSourceFileSystemObject?
     private var url: URL!
@@ -15,11 +15,11 @@ final class HotReloader {
     private let jsonEncoder = JSONEncoder()
     private let jsonDecoder = JSONDecoder()
     
-    private let store: DefaultStore
+    private let callback: (T) -> Void
 
-    init(store: DefaultStore) {
+    init(callback: @escaping (T) -> Void) {
         
-        self.store = store
+        self.callback = callback
         setupPath()
         jsonEncoder.outputFormatting = .prettyPrinted
         try? Data().write(to: url)
@@ -33,8 +33,8 @@ final class HotReloader {
         try? fileHandle?.close()
     }
 
-    func write(_ state: AppState) {
-        guard let json = try? jsonEncoder.encode(state) else { return }
+    func write(_ type: T) {
+        guard let json = try? jsonEncoder.encode(type) else { return }
 
         source?.cancel()
         try? json.write(to: url)
@@ -53,9 +53,8 @@ final class HotReloader {
         source?.setEventHandler { [weak self] in
             guard let self = self else { return }
             guard let data = try? Data(contentsOf: self.url) else { return assertionFailure() }
-            guard let state = try? self.jsonDecoder.decode(AppState.self, from: data) else { return print("🔥 Failed to decode Hot Reload\n") }
-
-            self.store.inject(state)
+            guard let encoded = try? self.jsonDecoder.decode(T.self, from: data) else { return print("🔥 Failed to decode Hot Reload\n") }
+            self.callback(encoded)
             print("🔥 Hot Reloaded state\n")
         }
 

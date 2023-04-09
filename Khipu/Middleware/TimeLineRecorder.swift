@@ -60,3 +60,52 @@ public final class TimelineRecorderMiddleware {
         }
     }
 }
+
+
+public final class TimelineRecorder {
+    public var totalSteps: Int { timeline.count }
+    public var totalLength: TimeInterval { timeline.map(\.timeOffset).reduce(0.0, +) }
+
+    private var timeline: [(timeOffset: TimeInterval, state: AppState)] = []
+    private var shouldRecord = true
+    private var lastStateChangeDate = Date()
+    private let store: DefaultStore
+
+    public init(store: DefaultStore) {
+        self.store = store
+        timeline = [(0.0, AppState())]
+    }
+    
+    func register(state: AppState) {
+        if shouldRecord {
+            timeline.append((timeline.isEmpty ? 0.0 : Date().timeIntervalSince(lastStateChangeDate), state))
+        }
+
+        lastStateChangeDate = Date()
+    }
+    
+
+    public func replay() {
+        shouldRecord = false
+        store.change(.replay(enabled: false))
+        replayNextStep()
+    }
+    
+    
+    private func replayNextStep() {
+        
+        guard let step = timeline.first else {
+            store.change(.replay(enabled: true))
+            shouldRecord = true
+            return
+        }
+        
+        
+        timeline.remove(at: 0)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + step.timeOffset) { [weak self] in
+            self?.store.inject(step.state.apply(.replay(enabled: false)))
+            self?.replayNextStep()
+        }
+    }
+}
