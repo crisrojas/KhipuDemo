@@ -11,24 +11,21 @@ import Models
 
 struct Adder: UseCase {
     enum Request { case add(ToDo) }
-    enum Response { case didAdd }
+    enum Response {}
     
     typealias RequestType = Request
     typealias ResponseType = Response
     
     private let store: DefaultStore
-    private let respond: (Response) -> ()
     
     func request(_ request: Request) {
         if case .add(let todo) = request {
             store.change(.add(todo))
-            respond(.didAdd)
         }
     }
     
-    init(store: DefaultStore, responder: @escaping (Response) -> ()) {
+    init(store: DefaultStore) {
         self.store = store
-        self.respond = responder
     }
 }
 

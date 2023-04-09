@@ -36,11 +36,11 @@ public func createCore(
 ) -> Input  {
     
     // State UseCases
-    let adder   = Adder  (store: store, responder: { _ in})
+    let adder   = Adder  (store: store)
     let deleter = Deleter(store: store)
     let changer = Changer(store: store)
     
-    // Middleware observers
+    // Middlewares
     let logger    = Logger()
     let reloader = HotReloader<AppState> {store.inject($0)}
     
@@ -52,7 +52,6 @@ public func createCore(
         if case let .change(t, c) = $0.change {changer.request(.change(t, with: c))}
         if case let .edit(editing) = $0 {store.change(.editing(editing))}
         reloader.write(store.state())
-//        if case .replay = $0 {recorder.replay()}
         recorder.register(state: store.state())
     }
 }
