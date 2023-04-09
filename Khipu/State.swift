@@ -11,14 +11,12 @@ import SwiftUI
 
 public struct AppState {
     let todos: [ToDo]
-    let replayEnabled: Bool
     let editing: Bool // @todo: Bind to SwiftUI List EditMode
 }
 
 public final class ViewState: ObservableObject {
     @Published public var todos = [ToDo]()
     @Published public var editing = false
-    @Published public var replayEnabled = true
     
     public init(store: DefaultStore) {
         
@@ -33,18 +31,15 @@ public final class ViewState: ObservableObject {
         todos = state.todos
             .sorted(by: { $0.title < $1.title })
             .sorted(by: { !$0.done && $1.done })
-        replayEnabled = state.replayEnabled
         editing = state.editing
-//        editMode = state.editing ? .active : .inactive
     }
 }
 
 public extension AppState {
-    init() {todos = [] ; replayEnabled = true; editing = false}
+    init() {todos = [] ; editing = false}
     
-    init(_ todos: [ToDo], _ replayEanbled: Bool, _ editing: Bool) {
+    init(_ todos: [ToDo], _ editing: Bool) {
         self.todos = todos
-        self.replayEnabled = replayEanbled
         self.editing = editing
     }
     
@@ -52,21 +47,19 @@ public extension AppState {
         case add(ToDo)
         case delete(ToDo)
         case change(ToDo, with: ToDo.Change)
-        case replay(enabled: Bool)
         case editing(Bool)
     }
     
     func apply(_ change: Change) -> Self {
         switch change {
-        case .add(let todo): return .init(todos + [todo], replayEnabled, editing)
-        case .delete(let todo): return .init(todos.filter { $0.id != todo.id }, replayEnabled, editing)
+        case .add(let todo): return .init(todos + [todo], editing)
+        case .delete(let todo): return .init(todos.filter { $0.id != todo.id }, editing)
         case .change(let todo, let change):
             let todos = todos
                 .filter { $0.id != todo.id }
                 + [todo.apply(change)]
-            return .init(todos, replayEnabled, editing)
-        case .replay (let enabled): return .init(todos, enabled, editing)
-        case .editing(let editing): return .init(todos, replayEnabled, editing)
+            return .init(todos, editing)
+        case .editing(let editing): return .init(todos, editing)
         }
     }
 }
