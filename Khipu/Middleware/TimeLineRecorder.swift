@@ -36,18 +36,19 @@ public final class TimelineRecorderMiddleware {
     }
     
 
-    public func replay() {
+    public func replay(completion: @escaping () -> Void) {
         shouldRecord = false
         store.change(.replay(enabled: false))
-        replayNextStep()
+        replayNextStep(completion: completion)
     }
     
     
-    private func replayNextStep() {
+    private func replayNextStep(completion: @escaping () -> Void) {
         
         guard let step = timeline.first else {
             store.change(.replay(enabled: true))
             shouldRecord = true
+            completion()
             return
         }
         
@@ -56,7 +57,7 @@ public final class TimelineRecorderMiddleware {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + step.timeOffset) { [weak self] in
             self?.store.inject(step.state.apply(.replay(enabled: false)))
-            self?.replayNextStep()
+            self?.replayNextStep(completion: completion)
         }
     }
 }

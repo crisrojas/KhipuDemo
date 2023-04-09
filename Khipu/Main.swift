@@ -16,7 +16,6 @@ protocol UseCase {
 
 public enum Message {
     case cmd(AppState.Change)
-    case replay
     case edit(Bool)
     
     var change: AppState.Change? {
@@ -53,8 +52,8 @@ public func createCore(
         if case let .change(t, c) = $0.change {changer.request(.change(t, with: c))}
         if case let .edit(editing) = $0 {store.change(.editing(editing))}
         reloader.write(store.state())
-        if case .replay = $0 {recorder.replay()}
-        else {recorder.register(state: store.state())}
+//        if case .replay = $0 {recorder.replay()}
+        recorder.register(state: store.state())
     }
 }
 

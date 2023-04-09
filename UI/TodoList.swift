@@ -12,7 +12,6 @@ public typealias TodoListClient = (
     add: (ToDo) -> (),
     delete: (ToDo) -> (),
     update: (ToDo, ToDo.Change) -> (),
-    replay: () -> (),
     edit: (Bool) -> ()
 )
 
@@ -26,19 +25,11 @@ extension ToDo {
 
 public struct TodoList: View {
     
-    @State private var isReplayStartAlertVisible = false
- 
     let todos: [ToDo]
-    let recordedSteps: Int
-    let recoredLenght: TimeInterval
-    let replayEnabled: Bool
     let client: TodoListClient?
     
-    public init(todos: [ToDo], recordedSteps: Int, recordedLength: TimeInterval, replayEnabled: Bool, client: TodoListClient? = nil) {
+    public init(todos: [ToDo], client: TodoListClient? = nil) {
         self.todos = todos
-        self.recordedSteps = recordedSteps
-        self.recoredLenght = recordedLength
-        self.replayEnabled = replayEnabled
         self.client = client
     }
     
@@ -57,29 +48,7 @@ public struct TodoList: View {
                 .onDelete(perform: delete)
             }
             .animation(.linear, value: todos)
-            .alert(
-                "Do you want to replay \(recordedSteps) states (duration: \(Int(recoredLenght))s)?",
-                isPresented: $isReplayStartAlertVisible,
-                actions: {
-                    Button("Cancel") {}
-                    Button("Replay") {client?.replay()}
-                }
-            )
-//            .alert("Timeline has finished!", isPresented: $stateHolder.isFinished, actions: {
-//                Button("OK") {}
-//            })
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading){
-                    Button(
-                        action: { isReplayStartAlertVisible = true },
-                        label: {
-                            Image(systemName: "clock.arrow.circlepath")
-                                .foregroundColor(!replayEnabled ? .secondary : .blue)
-                        }
-                    )
-                    .disabled(!replayEnabled)
-                }
-                
                 ToolbarItem(placement: .navigationBarTrailing) {
 //                    Button {
 //                        client?.edit(true)
@@ -109,14 +78,6 @@ public struct TodoList: View {
         }
     }
 }
-
-
-// We need to store state somewhere, because it will be discarded during timeline replay.
-fileprivate final class ReplayFinishedStateHolder: ObservableObject {
-    @Published var isFinished = false
-    @Published var isReplayButtonDisabled = false
-}
-fileprivate let replayFinishedStateHolder = ReplayFinishedStateHolder()
 
 
 public extension View {
